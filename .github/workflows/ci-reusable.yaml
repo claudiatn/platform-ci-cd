@@ -9,6 +9,9 @@ on:
       version:
         required: true
         type: string
+        
+permissions:
+  packages: write
 
 jobs:
   build-and-push:
