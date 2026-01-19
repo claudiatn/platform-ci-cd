@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-lastet
+    runs-on: ubuntu-latest
 
     steps:
       - name: Descargar código del repositorio
