@@ -11,7 +11,8 @@ on:
         type: string
         
 permissions:
-  packages: write
+  contents: read
+  packages: write 
 
 jobs:
   build-and-push:
