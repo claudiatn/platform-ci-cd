@@ -1,0 +1,34 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Scripts outputs
+*.out
+*.bak
+
+# Helm (si pruebas charts aquí)
+charts/
+*.tgz
+
+# GitHub Actions artifacts
+*.zip
+
+# Kubeconfig (¡muy importante!)
+kubeconfig
+*.kubeconfig
+
+# Environment files
+.env
+.env.*
