@@ -50,6 +50,6 @@ jobs:
 
       - name: Instalar y desplegar con Helm
         run: |
-               helm upgrade --install ${{ inputs.chart }} ghcr.io/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.version }} \
+               helm upgrade --install ${{ inputs.chart }} ./helm \
                 --namespace ${{ inputs.namespace }}
                          
