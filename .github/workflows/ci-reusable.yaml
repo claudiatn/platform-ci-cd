@@ -24,8 +24,6 @@ jobs:
 
 
       - name: Construir y Publicar la Imagen Docker
-        env:
         run: |
-
           docker build -t ghcr.io/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.version }} .
           docker push ghcr.io/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.version }}
