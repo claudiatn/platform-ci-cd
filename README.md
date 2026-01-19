@@ -1,20 +1,27 @@
-Plataforma CI/CD central — Workflows reutilizables y automatización DevOps
-📌 Descripción
-Este repositorio contiene la plataforma central de CI/CD utilizada por todos los servicios del proyecto Acme Tasks.
-Aquí es donde tú, como DevOps, debes implementar:
+# 📘 **README — Repo** `platform-ci-cd`
 
-Workflows reutilizables de CI y CD
+### _Plataforma CI/CD central — Workflows reutilizables y automatización DevOps_
 
-Scripts de automatización para build y deploy
+## 📌 Descripción
 
-Documentación interna de la plataforma
+Este repositorio contiene **la plataforma central de CI/CD** utilizada por todos los servicios del proyecto _Acme Tasks_. Aquí es donde tú, como DevOps, debes implementar:
 
-Buenas prácticas de estandarización para todos los repos
+- Workflows reutilizables de **CI** y **CD**
+    
+- Scripts de automatización para build y deploy
+    
+- Documentación interna de la plataforma
+    
+- Buenas prácticas de estandarización para todos los repos
+    
 
-Este repo actúa como un “punto único de verdad” para la automatización del proyecto.
+Este repo actúa como un **“punto único de verdad”** para la automatización del proyecto.
 
-📁 Estructura del repositorio
+## 📁 Estructura del repositorio
+
 Código
+
+```
 platform-ci-cd/
   .github/
     workflows/
@@ -28,67 +35,58 @@ platform-ci-cd/
     cd_design.md           # documentas tu diseño
   .gitignore
   README.md
-🎯 Objetivo del repositorio
+```
+
+## 🎯 Objetivo del repositorio
+
 Tu misión es construir:
 
-✔ Workflow reutilizable de CI
+### ✔ Workflow reutilizable de CI
+
 Debe permitir:
 
-Construir imágenes Docker
+- Construir imágenes Docker
+- Subirlas a un registry (local o remoto)
+- Devolver un `image_tag` como output
 
-Subirlas a un registry (local o remoto)
+### ✔ Workflow reutilizable de CD
 
-Devolver un image_tag como output
-
-✔ Workflow reutilizable de CD
 Debe permitir:
 
-Desplegar servicios con Helm
+- Desplegar servicios con Helm
+- Seleccionar entorno (`dev`, `prod`, etc.)
+- Usar kubeconfig como secret
+- Validar inputs
 
-Seleccionar entorno (dev, prod, etc.)
+### ✔ Scripts de automatización
 
-Usar kubeconfig como secret
+- `build_and_push.sh` → build + push de imágenes
+- `helm_deploy.sh` → despliegue Helm estándar
 
-Validar inputs
+## 🧪 Cómo probar tus workflows
 
-✔ Scripts de automatización
-build_and_push.sh → build + push de imágenes
+1. Ve a `frontend-app` o `backend-app`
+2. Ejecuta un push a `main`
+3. Observa cómo llaman a tus workflows reutilizables
+4. Comprueba que:
+    - Se construye la imagen
+    - Se sube al registry
+    - Se despliega en Kubernetes
 
-helm_deploy.sh → despliegue Helm estándar
 
-🧪 Cómo probar tus workflows
-Ve a frontend-app o backend-app
+## 📝 Documentación interna
 
-Ejecuta un push a main
-
-Observa cómo llaman a tus workflows reutilizables
-
-Comprueba que:
-
-Se construye la imagen
-
-Se sube al registry
-
-Se despliega en Kubernetes
-
-📝 Documentación interna
 Debes documentar:
 
-Inputs y outputs de cada reusable
+- Inputs y outputs de cada reusable
+- Variables estándar
+- Reglas de naming
+- Ejemplos de uso
 
-Variables estándar
+## 🧰 Requisitos previos
 
-Reglas de naming
-
-Ejemplos de uso
-
-🧰 Requisitos previos
-Docker
-
-Kubernetes local (kind/minikube/k3d)
-
-Helm
-
-GitHub Actions
-
-Registry local (localhost:5000)
+- Docker
+- Kubernetes local (kind/minikube/k3d)
+- Helm
+- GitHub Actions
+- Registry local (`localhost:5000`)
