@@ -24,6 +24,12 @@
         ls -la platform-ci-cd/scripts
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+      register: debug_fs
+
+    - name: Mostrar filesystem
+      ansible.builtin.debug:
+        var: debug_fs.stdout_lines
+
 
     # - name: Deploy Helm (script)
     #   ansible.builtin.command: >
