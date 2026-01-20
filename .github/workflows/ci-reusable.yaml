@@ -27,7 +27,6 @@ jobs:
           repository: claudiatn/platform-ci-cd
           ref: main
           path: scripts
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push image to GHCR
         id: build_push
