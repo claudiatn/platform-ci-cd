@@ -16,11 +16,9 @@ on:
         required: true
         type: string
       environment:
-        type: choice
-        options:
-          - dev
-          - staging
-          - production
+        description: Entorno de despliegue
+        required: true
+        type: string
 
 jobs:
   deploy:
