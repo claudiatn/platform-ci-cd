@@ -26,24 +26,24 @@ jobs:
         with:
           repository: claudiatn/platform-ci-cd
           ref: main
-          path: scripts
+          path: ci-scripts
 
       - name: Listar
         run: |
           ls 
-          cd scripts
+          cd ci-scripts
           ls
 
-      # - name: Build & Push image to GHCR
-      #   id: build_push
-      #   env:
-      #     GHCR_PAT: ${{ secrets.GHCR_PAT }}
-      #   run: |
-      #     chmod +x scripts/build_and_push.sh
-      #     scripts/build_and_push.sh \
-      #       "${{ inputs.image_name }}" \
-      #       "${{ inputs.version }}" \
-      #       "${{ github.actor }}" \
-      #       "$GHCR_PAT"
+      - name: Build & Push image to GHCR
+        id: build_push
+        env:
+          GHCR_PAT: ${{ secrets.GHCR_PAT }}
+        run: |
+          chmod +x ci-scripts/scripts/build_and_push.sh
+          ci-scripts/scripts/build_and_push.sh \
+            "${{ inputs.image_name }}" \
+            "${{ inputs.version }}" \
+            "${{ github.actor }}" \
+            "$GHCR_PAT"
 
 
