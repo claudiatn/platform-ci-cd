@@ -40,8 +40,8 @@
     - name: Deploy Helm (script)
       ansible.builtin.command: >
         ./platform-ci-cd/scripts/helm_deploy.sh
-        {{ namespace }}
-        {{ environment }}
+        {{ namespace }}  
+        "{{ environment }}" 
         {{ actor }}
         {{ ghcr_pat }}
         {{ chart }}
