@@ -30,7 +30,6 @@ jobs:
 
       - name: Build & Push image to GHCR
         id: build_push
-        working-directory: scripts
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
