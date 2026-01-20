@@ -23,10 +23,11 @@ jobs:
 
       - name: Build & Push image to GHCR
         id: build_push
+        working-directory: scripts
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
-          ./scripts/build_and_push.sh \
+            build_and_push.sh \
             "${{ inputs.image_name }}" \
             "${{ inputs.version }}" \
             "${{ github.actor }}" \
