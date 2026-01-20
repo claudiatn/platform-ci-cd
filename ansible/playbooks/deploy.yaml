@@ -1,0 +1,28 @@
+- name: Deploy app
+  hosts: local
+  gather_facts: false
+  vars:
+    namespace: "{{ namespace }}"
+    environment: "{{ environment }}"
+    actor: "{{ actor }}"        
+    ghcr_pat: "{{ ghcr_pat }}"
+    chart: "{{ chart }}"
+
+  tasks:
+    - name: Crear namespace Kubernetes
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ namespace }}"
+        state: present
+
+    - name: Deploy Helm (script)
+      ansible.builtin.command: >
+        ./platform-ci-cd/scripts/deploy_helm.sh
+        {{ namespace }}
+        {{ environment }}
+        {{ actor }}
+        {{ ghcr_pat }}
+        {{ chart }}
+      args:
+        chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"

@@ -45,16 +45,29 @@ jobs:
           ref: main
           path: cd-scripts
           
-      - name: DEPLOY HELM
-        id: deploy
+      # - name: DEPLOY HELM
+      #   id: deploy
+      #   env:
+      #     GHCR_PAT: ${{ secrets.GHCR_PAT }}
+      #   run: |
+      #     chmod +x cd-scripts/scripts/build_and_push.sh
+      #     cd-scripts/scripts/build_and_push.sh \
+      #       "${{ inputs.namespace }}" \
+      #       "${{ inputs.environment }}" \
+      #       "${{ github.actor }}" \
+      #       "$GHCR_PAT" \
+      #       "${{ inputs.chart }}" 
+      - name: Ejecutar Ansible para desplegar Helm
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
-          chmod +x cd-scripts/scripts/build_and_push.sh
-          cd-scripts/scripts/build_and_push.sh \
-            "${{ inputs.namespace }}" \
-            "${{ inputs.environment }}" \
-            "${{ github.actor }}" \
-            "$GHCR_PAT" \
-            "${{ inputs.chart }}" 
+          ansible-playbook \
+            -i platform-ci-cd/ansible/inventory/hosts.yml \
+            platform-ci-cd/ansible/playbooks/deploy.yml \
+            -e namespace=${{ inputs.namespace }} \
+            -e environment=${{ inputs.environment }} \
+            -e actor=${{ github.actor }}"  \
+            -e ghcr_pat=$GHCR_PAT \
+            -e chart=$chart \
+            -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yml
 
