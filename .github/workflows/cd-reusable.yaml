@@ -15,6 +15,12 @@ on:
       chart:
         required: true
         type: string
+      environment:
+        type: choice
+        options:
+          - dev
+          - staging
+          - production
 
 jobs:
   deploy:
