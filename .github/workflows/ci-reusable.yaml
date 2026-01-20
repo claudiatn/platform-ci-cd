@@ -21,13 +21,22 @@ jobs:
       - name: Descargar código del repositorio
         uses: actions/checkout@v3
 
+      - name: Checkout CI scripts repo
+        uses: actions/checkout@v3
+        with:
+          repository: claudiatn/platform-ci-cd
+          ref: main
+          path: scripts
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build & Push image to GHCR
         id: build_push
         working-directory: scripts
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
-            build_and_push.sh \
+          chmod +x scripts/scripts/build_and_push.sh
+          scripts/scripts/build_and_push.sh \
             "${{ inputs.image_name }}" \
             "${{ inputs.version }}" \
             "${{ github.actor }}" \
