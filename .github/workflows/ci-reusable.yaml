@@ -15,7 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write   
+      packages: write
+      
+    outputs: 
+      image_tag: ${{ steps.set_tag.outputs.tag }}
 
     steps:
       - name: Descargar código del repositorio
@@ -45,4 +48,4 @@ jobs:
     steps: 
         - name: Mostrar tag 
           run: |
-             echo "El tag generado es: ${{ needs.build-and-push.outputs.tag }}"
+             echo "El tag generado es: ${{ needs.build-and-push.outputs.image_tag }}"
