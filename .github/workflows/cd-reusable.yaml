@@ -38,12 +38,12 @@ jobs:
         with:
             version: "v0.30.0" 
               
-      - name: Checkout CI scripts repo
-        uses: actions/checkout@v3
-        with:
-          repository: claudiatn/platform-ci-cd
-          ref: main
-          path: cd-scripts
+      # - name: Checkout CI scripts repo
+      #   uses: actions/checkout@v3
+      #   with:
+      #     repository: claudiatn/platform-ci-cd
+      #     ref: main
+      #     path: cd-scripts
           
       # - name: DEPLOY HELM
       #   id: deploy
@@ -57,17 +57,24 @@ jobs:
       #       "${{ github.actor }}" \
       #       "$GHCR_PAT" \
       #       "${{ inputs.chart }}" 
+
+      - name: Checkout CI ansible repo
+        uses: actions/checkout@v3
+        with:
+          repository: claudiatn/platform-ci-cd
+          ref: main
+          path: ansible-repo
+          
       - name: Ejecutar Ansible para desplegar Helm
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
           ansible-playbook \
-            -i platform-ci-cd/ansible/inventory/hosts.yaml \
-            platform-ci-cd/ansible/playbooks/deploy.yaml \
+            -i ansible-repo/ansible/inventory/hosts.yaml \
+            ansible-repo/ansible/playbooks/deploy.yaml \
             -e namespace=${{ inputs.namespace }} \
             -e environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=$chart \
             -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yaml
-
