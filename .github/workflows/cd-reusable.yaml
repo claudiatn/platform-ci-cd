@@ -62,12 +62,12 @@ jobs:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
           ansible-playbook \
-            -i platform-ci-cd/ansible/inventory/hosts.yml \
-            platform-ci-cd/ansible/playbooks/deploy.yml \
+            -i platform-ci-cd/ansible/inventory/hosts.yaml \
+            platform-ci-cd/ansible/playbooks/deploy.yaml \
             -e namespace=${{ inputs.namespace }} \
             -e environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=$chart \
-            -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yml
+            -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yaml
 
