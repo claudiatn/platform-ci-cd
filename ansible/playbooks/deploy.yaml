@@ -17,12 +17,16 @@
         state: present
 
     - name: Deploy Helm (script)
-      ansible.builtin.command: >
-        ./scripts/deploy_helm.sh
-        {{ namespace }}
-        {{ environment }}
-        {{ actor }}
-        {{ ghcr_pat }}
-        {{ chart }}
-      args:
-        chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+      ansible.builtin.shell: >
+        ls
+
+    # - name: Deploy Helm (script)
+    #   ansible.builtin.command: >
+    #     ./scripts/deploy_helm.sh
+    #     {{ namespace }}
+    #     {{ environment }}
+    #     {{ actor }}
+    #     {{ ghcr_pat }}
+    #     {{ chart }}
+    #   args:
+    #     chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
