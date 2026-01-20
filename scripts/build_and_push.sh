@@ -7,6 +7,8 @@ VERSION="$2"
 ACTOR="$3"
 GHCR_PAT="$4"
 
+BUILD_CONTEXT="${GITHUB_WORKSPACE}"
+
 IMAGE="ghcr.io/${ACTOR}/${IMAGE_NAME}:${VERSION}"
 
 echo "🔐 Login en GHCR"
