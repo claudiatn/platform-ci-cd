@@ -41,7 +41,7 @@ jobs:
             version: "v0.30.0" 
               
       - name: Create namespace
-        run: kubectl create namespace ${{ inputs.namespace }}
+        run: kubectl create namespace ${{ inputs.namespace }}-${{ inputs.environment }}
 
       - name: Crear ghcr-secret
         env:
@@ -51,11 +51,11 @@ jobs:
             --docker-server=ghcr.io \
             --docker-username=${{ github.actor }} \
             --docker-password=${{ secrets.GHCR_PAT  }} \
-            --namespace=${{ inputs.namespace }}
+            --namespace=${{ inputs.namespace }}-${{ inputs.environment }}
 
 
       - name: Instalar y desplegar con Helm
         run: |
                helm upgrade --install ${{ inputs.chart }} ./helm \
-                --namespace ${{ inputs.namespace }}
+                --namespace ${{ inputs.namespace }}-${{ inputs.environment }}
                          
