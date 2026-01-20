@@ -15,10 +15,17 @@
         kind: Namespace
         name: "{{ namespace }}"
         state: present
-
-    - name: Deploy Helm (script)
-      ansible.builtin.shell: >
-        ls
+  
+    - name: Debug filesystem
+      ansible.builtin.shell: |
+        echo "PWD:"
+        pwd
+        echo "---- ROOT ----"
+        ls -la
+        echo "---- WORKSPACE ----"
+        ls -la "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+        echo "---- PLATFORM CI CD ----"
+        ls -la "{{ lookup('env', 'GITHUB_WORKSPACE') }}/platform-ci-cd"
 
     # - name: Deploy Helm (script)
     #   ansible.builtin.command: >
