@@ -85,4 +85,4 @@ jobs:
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=$chart \
-            -e platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yaml
+            -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yaml
