@@ -64,6 +64,13 @@ jobs:
           repository: claudiatn/platform-ci-cd
           ref: main
           path: ansible-repo
+      
+      - name: Checkout CI scripts repo
+        uses: actions/checkout@v3
+        with:
+          repository: claudiatn/platform-ci-cd
+          ref: main
+          path: cd-scripts
 
       - name: Instalar Ansible y colecciones
         run: |
