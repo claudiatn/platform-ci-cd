@@ -33,3 +33,16 @@ jobs:
       - name: Publicar imagen
         run: |
           docker push ghcr.io/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.version }}
+          
+      - name: Establecer tag como output 
+        id: set_tag 
+        run: |  
+          echo "tag=ghcr.io/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.version }}" >> $GITHUB_OUTPUT
+
+  usar-tag: 
+    needs: build-and-push 
+    runs-on: ubuntu-latest 
+    steps: 
+        - name: Mostrar tag 
+          run: |
+             echo "El tag generado es: ${{ needs.build-and-push.outputs.tag }}"
