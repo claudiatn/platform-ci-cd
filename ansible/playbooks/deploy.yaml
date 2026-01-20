@@ -18,7 +18,7 @@
 
     - name: Deploy Helm (script)
       ansible.builtin.command: >
-        ./cd-scripts/scripts/deploy_helm.sh
+        ./platform-ci-cd/scripts/deploy_helm.sh
         {{ namespace }}
         {{ environment }}
         {{ actor }}
