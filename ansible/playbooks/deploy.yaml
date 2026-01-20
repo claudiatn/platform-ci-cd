@@ -15,25 +15,14 @@
         kind: Namespace
         name: "{{ namespace }}"
         state: present
-  
-    - name: Debug filesystem
-      ansible.builtin.shell: |
-        echo "PWD:"
-        pwd
-        echo "---- ROOT ----"
-        ls -la
-        echo "---- WORKSPACE ----"
-        ls -la "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
-        echo "---- PLATFORM CI CD ----"
-        ls -la "{{ lookup('env', 'GITHUB_WORKSPACE') }}/platform-ci-cd"
 
-    # - name: Deploy Helm (script)
-    #   ansible.builtin.command: >
-    #     ./scripts/deploy_helm.sh
-    #     {{ namespace }}
-    #     {{ environment }}
-    #     {{ actor }}
-    #     {{ ghcr_pat }}
-    #     {{ chart }}
-    #   args:
-    #     chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+    - name: Deploy Helm (script)
+      ansible.builtin.command: >
+        ./cd-scripts/scripts/deploy_helm.sh
+        {{ namespace }}
+        {{ environment }}
+        {{ actor }}
+        {{ ghcr_pat }}
+        {{ chart }}
+      args:
+        chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
