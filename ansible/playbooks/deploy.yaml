@@ -41,9 +41,9 @@
       ansible.builtin.command: >
         ./platform-ci-cd/scripts/helm_deploy.sh
         {{ namespace }}  
-        "{{ environment }}" 
+        "{{ environment | string }}" 
         {{ actor }}
         {{ ghcr_pat }}
-        {{ chart }}
+        "{{ chart | string }}"
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
