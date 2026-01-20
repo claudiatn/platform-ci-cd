@@ -35,8 +35,8 @@ jobs:
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
-          chmod +x scripts/scripts/build_and_push.sh
-          scripts/scripts/build_and_push.sh \
+          chmod +x scripts/build_and_push.sh
+          scripts/build_and_push.sh \
             "${{ inputs.image_name }}" \
             "${{ inputs.version }}" \
             "${{ github.actor }}" \
