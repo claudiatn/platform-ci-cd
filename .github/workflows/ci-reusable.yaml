@@ -27,13 +27,7 @@ jobs:
           repository: claudiatn/platform-ci-cd
           ref: main
           path: ci-scripts
-
-      - name: Listar
-        run: |
-          ls 
-          cd ci-scripts
-          ls
-
+          
       - name: Build & Push image to GHCR
         id: build_push
         env:
