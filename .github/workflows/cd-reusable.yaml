@@ -64,6 +64,11 @@ jobs:
           repository: claudiatn/platform-ci-cd
           ref: main
           path: ansible-repo
+
+      - name: Instalar Ansible y colecciones
+        run: |
+          pip install ansible
+          ansible-galaxy collection install community.docker kubernetes.core
           
       - name: Ejecutar Ansible para desplegar Helm
         env:
