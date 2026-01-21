@@ -1,12 +1,12 @@
 - name: Deploy app
   hosts: local
   gather_facts: false
-  vars:
-    namespace: "{{ namespace }}"
-    environment: "{{ environment }}"
-    actor: "{{ actor }}"        
-    ghcr_pat: "{{ ghcr_pat }}"
-    chart: "{{ chart }}"
+  # vars:
+  #   namespace: "{{ namespace }}"
+  #   environment: "{{ environment }}"
+  #   actor: "{{ actor }}"        
+  #   ghcr_pat: "{{ ghcr_pat }}"
+  #   chart: "{{ chart }}"
 
   tasks:
 
