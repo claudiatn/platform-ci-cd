@@ -10,10 +10,14 @@
 
   tasks:
 
+    - name: Tipo de environment
+      ansible.builtin.debug:
+        msg: "environment es {{ deploy_environment | type_debug }}"
+
     - name: Debug platform-ci-cd
       ansible.builtin.shell: |
         echo namespace en ansible: "{{ namespace }}"
-        echo environment en ansible: "{{ environment }}"
+        echo environment en ansible: "{{ deploy_environment }}"
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
       register: debug_fs
@@ -26,7 +30,7 @@
       kubernetes.core.k8s:
         api_version: v1
         kind: Namespace
-        name: "{{ namespace }}-{{ environment }}"
+        name: "{{ namespace }}-{{ deploy_environme }}"
         state: present
         
     - name: chmod script
