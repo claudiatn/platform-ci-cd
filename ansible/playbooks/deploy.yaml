@@ -9,13 +9,7 @@
     chart: "{{ chart }}"
 
   tasks:
-    - name: Crear namespace Kubernetes
-      kubernetes.core.k8s:
-        api_version: v1
-        kind: Namespace
-        name: "{{ namespace }}-{{ environment }}"
-        state: present
-        
+
     - name: Debug platform-ci-cd
       ansible.builtin.shell: |
         echo namespace en ansible: "{{ namespace }}"
@@ -27,7 +21,14 @@
     - name: Mostrar filesystem
       ansible.builtin.debug:
         var: debug_fs.stdout_lines
-
+        
+    - name: Crear namespace Kubernetes
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ namespace }}-{{ environment }}"
+        state: present
+        
     - name: chmod script
       ansible.builtin.shell: |
         chmod +x platform-ci-cd/scripts/helm_deploy.sh
