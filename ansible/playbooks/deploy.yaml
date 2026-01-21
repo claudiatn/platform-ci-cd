@@ -13,7 +13,7 @@
       kubernetes.core.k8s:
         api_version: v1
         kind: Namespace
-        name: "{{ namespace }}"-"{{ environment }}"
+        name: "{{ namespace }}-{{ environment }}"
         state: present
         
     - name: Debug platform-ci-cd
