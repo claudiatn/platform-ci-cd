@@ -85,7 +85,7 @@ jobs:
             -i platform-ci-cd/ansible/inventory/hosts.yaml \
             platform-ci-cd/ansible/playbooks/deploy.yaml \
             -e namespace=${{ inputs.namespace }} \
-            -e environment=${{ inputs.environment }} \
+            -e deploy_environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=${{ inputs.chart }} \
