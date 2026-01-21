@@ -84,7 +84,6 @@ jobs:
           ansible-playbook \
             -i platform-ci-cd/ansible/inventory/hosts.yaml \
             platform-ci-cd/ansible/playbooks/deploy.yaml \
-            -e @platform-ci-cd/ansible/groups_vars/${{ inputs.environment }}.yaml \
             -e namespace=${{ inputs.namespace }} \
             -e environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
