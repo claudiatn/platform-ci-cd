@@ -1,7 +1,7 @@
 name: Reusable CD Workflow
 
 on:
-  workflow_call:
+  workflow_dispatch: 
     inputs:
       namespace:
         required: true
@@ -72,17 +72,21 @@ jobs:
           pip install ansible
           ansible-galaxy collection install kubernetes.core
           pip install kubernetes openshift
-          
-      - name: Ejecutar Ansible para desplegar Helm
-        env:
-          GHCR_PAT: ${{ secrets.GHCR_PAT }}
+
+      - name: Debug environment
         run: |
-          ansible-playbook \
-            -i platform-ci-cd/ansible/inventory/hosts.yaml \
-            platform-ci-cd/ansible/playbooks/deploy.yaml \
-            -e namespace=${{ inputs.namespace }} \
-            -e environment=${{ inputs.environment }} \
-            -e actor=${{ github.actor }}  \
-            -e ghcr_pat=$GHCR_PAT \
-            -e chart=$chart \
-            -e @platform-ci-cd/ansible/groups_vars/${{ inputs.environment }}.yaml
+          echo environment elegido: ${{ inputs.environment }}
+          
+      # - name: Ejecutar Ansible para desplegar Helm
+      #   env:
+      #     GHCR_PAT: ${{ secrets.GHCR_PAT }}
+      #   run: |
+      #     ansible-playbook \
+      #       -i platform-ci-cd/ansible/inventory/hosts.yaml \
+      #       platform-ci-cd/ansible/playbooks/deploy.yaml \
+      #       -e namespace=${{ inputs.namespace }} \
+      #       -e environment=${{ inputs.environment }} \
+      #       -e actor=${{ github.actor }}  \
+      #       -e ghcr_pat=$GHCR_PAT \
+      #       -e chart=$chart \
+      #       -e @platform-ci-cd/ansible/groups_vars/${{ inputs.environment }}.yaml
