@@ -10,21 +10,10 @@
 
   tasks:
 
-    - name: Tipo de environment
-      ansible.builtin.debug:
-        msg: "environment es {{ deploy_environment | type_debug }}"
+    # - name: Tipo de environment
+    #   ansible.builtin.debug:
+    #     msg: "environment es {{ deploy_environment | type_debug }}"
 
-    - name: Debug platform-ci-cd
-      ansible.builtin.shell: |
-        echo namespace en ansible: "{{ namespace }}"
-        echo environment en ansible: "{{ deploy_environment }}"
-      args:
-        chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
-      register: debug_fs
-
-    - name: Mostrar filesystem
-      ansible.builtin.debug:
-        var: debug_fs.stdout_lines
         
     - name: chmod script
       ansible.builtin.shell: |
