@@ -1,7 +1,7 @@
 name: Reusable CD Workflow
 
 on:
-  workflow_dispatch: 
+  workflow_call: 
     inputs:
       namespace:
         required: true
