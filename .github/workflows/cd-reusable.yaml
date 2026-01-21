@@ -88,5 +88,5 @@ jobs:
             -e environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
-            -e chart=$chart \
+            -e chart=${{ inputs.chart }} \
             -e @platform-ci-cd/ansible/groups_vars/${{ inputs.environment }}.yaml
