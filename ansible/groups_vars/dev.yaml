@@ -1,2 +1,2 @@
-namespace: acme-dev
+#namespace: acme-dev
 registry_port: 5000
