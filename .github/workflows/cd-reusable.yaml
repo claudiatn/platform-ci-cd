@@ -72,10 +72,6 @@ jobs:
           pip install ansible
           ansible-galaxy collection install kubernetes.core
           pip install kubernetes openshift
-
-      - name: Debug environment
-        run: |
-          echo environment recibido : ${{ inputs.environment }}
           
       - name: Ejecutar Ansible para desplegar Helm
         env:
