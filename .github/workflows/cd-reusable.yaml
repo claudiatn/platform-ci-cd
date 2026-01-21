@@ -75,7 +75,7 @@ jobs:
 
       - name: Debug environment
         run: |
-          echo environment elegido: ${{ inputs.environment }}
+          echo environment recibido : ${{ inputs.environment }}
           
       # - name: Ejecutar Ansible para desplegar Helm
       #   env:
