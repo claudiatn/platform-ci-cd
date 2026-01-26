@@ -27,4 +27,4 @@ helm upgrade --install $CHART ./helm \
                          
 
 echo "Comprobar despliegue"
-kubectl get all -n "$NAMESPACE-$ENVIRONMENT
+kubectl get all -n "$NAMESPACE-$ENVIRONMENT"
