@@ -30,6 +30,7 @@
         {{ actor }}
         {{ ghcr_pat }}
         {{ chart }}
+        {{ image_tag }}
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
       register: deploy_output 

@@ -20,3 +20,5 @@ echo "📤 Publicando imagen"
 docker push "$IMAGE"
 
 echo "tag=$IMAGE" >> "$GITHUB_OUTPUT"
+echo "$VERSION" > artifact.txt
+
