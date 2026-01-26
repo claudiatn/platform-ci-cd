@@ -22,6 +22,6 @@ kubectl create secret docker-registry ghcr-secret \
 
 echo "DEPLOY HELM"
 helm upgrade --install $CHART ./helm \
-             -f "./environments/$ENVIRONMENT/$CHART-values.yaml" \
+             -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
              --namespace "$NAMESPACE-$ENVIRONMENT"
                          
