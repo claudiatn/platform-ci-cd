@@ -20,8 +20,11 @@ kubectl create secret docker-registry ghcr-secret \
             --docker-password=$GHCR_PAT \
             --namespace="$NAMESPACE-$ENVIRONMENT"
 
-echo "DEPLOY HELM"
 
+echo "HELM LINT"
+helm lint ./helm
+
+echo "DEPLOY HELM"
 if ! helm upgrade --install "$CHART" ./helm \
   -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
   --namespace "$NAMESPACE-$ENVIRONMENT"; then
@@ -33,7 +36,6 @@ if ! helm upgrade --install "$CHART" ./helm \
 
   exit 1
 fi
-
 
 echo "Comprobar despliegue"
 kubectl get all -n "$NAMESPACE-$ENVIRONMENT"
