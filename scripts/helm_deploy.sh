@@ -25,3 +25,6 @@ helm upgrade --install $CHART ./helm \
              -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
              --namespace "$NAMESPACE-$ENVIRONMENT"
                          
+
+echo "Comprobar despliegue"
+kubectl get all -n "$NAMESPACE-$ENVIRONMENT
