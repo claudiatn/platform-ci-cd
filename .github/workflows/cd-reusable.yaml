@@ -1,7 +1,7 @@
 name: Reusable CD Workflow
 
 on:
-  workflow_call:
+  workflow_call: 
     inputs:
       namespace:
         required: true
@@ -58,24 +58,30 @@ jobs:
       #       "$GHCR_PAT" \
       #       "${{ inputs.chart }}" 
 
-      - name: Checkout CI ansible repo
+      
+      - name: Checkout CI scripts repo
         uses: actions/checkout@v3
         with:
           repository: claudiatn/platform-ci-cd
           ref: main
-          path: ansible-repo
+          path: platform-ci-cd
+
+      - name: Instalar Ansible y colecciones
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install ansible
+          ansible-galaxy collection install kubernetes.core
+          pip install kubernetes openshift
           
       - name: Ejecutar Ansible para desplegar Helm
         env:
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
           ansible-playbook \
-            -i ansible-repo/ansible/inventory/hosts.yml \
-            ansible-repo/ansible/playbooks/deploy.yml \
+            -i platform-ci-cd/ansible/inventory/hosts.yaml \
+            platform-ci-cd/ansible/playbooks/deploy.yaml \
             -e namespace=${{ inputs.namespace }} \
-            -e environment=${{ inputs.environment }} \
+            -e deploy_environment=${{ inputs.environment }} \
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
-            -e chart=$chart \
-            -e @platform-ci-cd/ansible/group_vars/${{ inputs.environment }}.yml
-
+            -e chart=${{ inputs.chart }} \
