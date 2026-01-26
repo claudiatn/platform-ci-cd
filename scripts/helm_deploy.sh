@@ -6,6 +6,7 @@ ENVIRONMENT="$2"
 ACTOR="$3"
 GHCR_PAT="$4"
 CHART="$5"
+IMAGE_TAG="$6"
 
 BUILD_CONTEXT="${GITHUB_WORKSPACE}"
 
@@ -27,6 +28,7 @@ helm lint ./helm
 echo "DEPLOY HELM"
 if ! helm upgrade --install "$CHART" ./helm \
   -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
+  --set image.tag="$IMAGE_TAG" \
   --namespace "$NAMESPACE-$ENVIRONMENT"; then
 
   echo "❌ ERROR: El despliegue falló. Ejecutando rollback..."
