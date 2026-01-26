@@ -32,3 +32,9 @@
         {{ chart }}
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+      register: deploy_output 
+      ignore_errors: false
+
+    - name: Mostrar salida del script 
+      debug: 
+        var: deploy_output.stdout_lines
