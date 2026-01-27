@@ -25,14 +25,11 @@ Código
 platform-ci-cd/
   .github/
     workflows/
-      ci-reusable.yml      # lo implementas tú
-      cd-reusable.yml      # lo implementas tú
+      ci-reusable.yml    
+      cd-reusable.yml     
   scripts/
-    build_and_push.sh      # lo implementas tú
-    helm_deploy.sh         # lo implementas tú
-  docs/
-    ci_design.md           # documentas tu diseño
-    cd_design.md           # documentas tu diseño
+    build_and_push.sh    
+    helm_deploy.sh       
   .gitignore
   README.md
 ```
@@ -63,7 +60,7 @@ Debe permitir:
 - `build_and_push.sh` → build + push de imágenes
 - `helm_deploy.sh` → despliegue Helm estándar
 
-## 🧪 Cómo probar tus workflows
+## 🧪 Cómo probar workflows
 
 1. Ve a `frontend-app` o `backend-app`
 2. Ejecuta un push a `main`
@@ -74,19 +71,4 @@ Debe permitir:
     - Se despliega en Kubernetes
 
 
-## 📝 Documentación interna
 
-Debes documentar:
-
-- Inputs y outputs de cada reusable
-- Variables estándar
-- Reglas de naming
-- Ejemplos de uso
-
-## 🧰 Requisitos previos
-
-- Docker
-- Kubernetes local (kind/minikube/k3d)
-- Helm
-- GitHub Actions
-- Registry local (`localhost:5000`)
