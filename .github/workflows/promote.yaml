@@ -1,0 +1,62 @@
+name: Promote Image
+
+on:
+  workflow_call:
+    inputs:
+      namespace:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      chart:
+        required: true
+        type: string
+      path_chart:
+        required: true
+        type: string
+      image_tag:
+        required: true
+        type: string
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.30.0'
+
+      - name: Create Kind cluster
+        uses: helm/kind-action@v1
+
+      - name: Checkout CD scripts
+        uses: actions/checkout@v4
+        with:
+          repository: claudiatn/platform-ci-cd
+          ref: main
+          path: platform-ci-cd
+
+      - name: Install Ansible
+        run: |
+          pip install ansible kubernetes openshift
+          ansible-galaxy collection install kubernetes.core
+
+      - name: Deploy with Ansible
+        env:
+          GHCR_PAT: ${{ secrets.GHCR_PAT }}
+        run: |
+          ansible-playbook \
+            -i platform-ci-cd/ansible/inventory/hosts.yaml \
+            platform-ci-cd/ansible/playbooks/deploy.yaml \
+            -e namespace=${{ inputs.namespace }} \
+            -e deploy_environment=${{ inputs.environment }} \
+            -e actor=${{ github.actor }} \
+            -e ghcr_pat=$GHCR_PAT \
+            -e chart=${{ inputs.chart }} \
+            -e path_chart="${{ inputs.path_chart }}" \
+            -e image_tag=${{ inputs.image_tag }}
