@@ -72,9 +72,20 @@ jobs:
           pip install ansible
           ansible-galaxy collection install kubernetes.core
           pip install kubernetes openshift
+      
+      - name: Download image tag
+        uses: actions/download-artifact@v4
+        with:
+          name: image-tag
+
+      - name: Read tag
+        id: read_tag
+        run: echo "tag=$(cat artifact.txt)" >> $GITHUB_OUTPUT
+
           
       - name: Ejecutar Ansible para desplegar Helm
         env:
+          IMAGE_TAG: ${{ steps.read_tag.outputs.tag }}
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         run: |
           ansible-playbook \
@@ -85,4 +96,5 @@ jobs:
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=${{ inputs.chart }} \
+            -e image_tag=$IMAGE_TAG
    
