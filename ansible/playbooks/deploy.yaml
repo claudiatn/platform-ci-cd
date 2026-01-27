@@ -10,9 +10,9 @@
 
   tasks:
 
-    # - name: Tipo de environment
-    #   ansible.builtin.debug:
-    #     msg: "environment es {{ deploy_environment | type_debug }}"
+    - name: Tipo de environment
+      ansible.builtin.debug:
+        msg: "image_tag es {{ image_tag | type_debug }}"
 
         
     - name: chmod script
