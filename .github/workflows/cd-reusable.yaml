@@ -81,6 +81,11 @@ jobs:
       - name: Read tag
         id: read_tag
         run: echo "tag=$(cat artifact.txt)" >> $GITHUB_OUTPUT
+        
+      - name: Imprimir tag
+        env:
+          IMAGE_TAG: ${{ steps.read_tag.outputs.tag }}
+        run: echo "IMAGE TAG = $IMAGE_TAG"
 
           
       - name: Ejecutar Ansible para desplegar Helm
