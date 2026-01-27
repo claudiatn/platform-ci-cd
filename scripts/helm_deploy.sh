@@ -21,10 +21,19 @@ kubectl create secret docker-registry ghcr-secret \
             --namespace="$NAMESPACE-$ENVIRONMENT"
 
 echo "DEPLOY HELM"
-helm upgrade --install $CHART ./helm \
-             -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
-             --namespace "$NAMESPACE-$ENVIRONMENT"
-                         
+
+if ! helm upgrade --install "$CHART" ./helm \
+  -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
+  --namespace "$NAMESPACE-$ENVIRONMENT"; then
+
+  echo "❌ ERROR: El despliegue falló. Ejecutando rollback..."
+
+  LAST_REVISION=$(helm history "$CHART" -n "$NAMESPACE-$ENVIRONMENT" | awk 'NR==2{print $1}')
+  helm rollback "$CHART" "$LAST_REVISION" -n "$NAMESPACE-$ENVIRONMENT"
+
+  exit 1
+fi
+
 
 echo "Comprobar despliegue"
 kubectl get all -n "$NAMESPACE-$ENVIRONMENT"
