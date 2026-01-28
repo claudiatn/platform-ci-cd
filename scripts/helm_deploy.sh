@@ -6,7 +6,8 @@ ENVIRONMENT="$2"
 ACTOR="$3"
 GHCR_PAT="$4"
 CHART="$5"
-IMAGE_TAG="$6"
+PATH-CHART="$6"
+IMAGE_TAG="$7"
 
 BUILD_CONTEXT="${GITHUB_WORKSPACE}"
 
@@ -21,12 +22,17 @@ kubectl create secret docker-registry ghcr-secret \
             --docker-password=$GHCR_PAT \
             --namespace="$NAMESPACE-$ENVIRONMENT"
 
-
+# Si viene vacío, usar ./helm 
+if [ -z "$PATH_CHART" ]; 
+   then FULL_PATH="./helm" 
+   else FULL_PATH="./helm/$PATH_CHART"
+fi 
+ 
 echo "HELM LINT"
-helm lint ./helm
+helm lint "$FULL_PATH"
 
 echo "DEPLOY HELM"
-if ! helm upgrade --install "$CHART" ./helm \
+if ! helm upgrade --install "$CHART" "$FULL_PATH" \
   -f "platform-ci-cd/environments/$ENVIRONMENT/$CHART-values.yaml" \
   --set image.tag="$IMAGE_TAG" \
   --namespace "$NAMESPACE-$ENVIRONMENT"; then
