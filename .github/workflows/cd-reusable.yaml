@@ -15,7 +15,7 @@ on:
       chart:
         required: true
         type: string
-      path-chart:
+      path_chart:
         required: true
         type: string
       environment:
@@ -104,6 +104,6 @@ jobs:
             -e actor=${{ github.actor }}  \
             -e ghcr_pat=$GHCR_PAT \
             -e chart=${{ inputs.chart }} \
-            -e path-chart=${{ inputs.path-chart }} \
+            -e path_chart=${{ inputs.path_chart }} \
             -e image_tag=$IMAGE_TAG
    
