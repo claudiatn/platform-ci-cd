@@ -30,6 +30,7 @@
         {{ actor }}
         {{ ghcr_pat }}
         {{ chart }}
+        {{ path-chart }}
         {{ image_tag }}
       args:
         chdir: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
