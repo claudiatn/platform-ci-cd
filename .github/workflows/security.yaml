@@ -1,0 +1,55 @@
+name: Security Scan
+
+on:
+  workflow_call:
+
+jobs:
+
+## Analiza codigo (inyecciones SQL, XSS, uso inseguro de librerias, rutas inseguras, vurlnerabilidades...)(CodeQL)
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+## analiza dependencias (npm audit)
+  sca:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+## Analiza la imagen de Docker (Trivy)
+  docker-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t test-image .
+
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: test-image
+
+## Detecta si se han subido toknes, pass, api keys, claves privadas...(TruffleHog)
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Secret scanning
+        uses: trufflesecurity/trufflehog@main
